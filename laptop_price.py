@@ -19,15 +19,25 @@ st.markdown("### Please enter the details of the laptop:")
 
 # Inputan detail spesifikasi oleh user
 brand = st.selectbox("Select Brand", ["Acer", "Asus", "Dell", "HP", "Lenovo"])
-processor_speed = st.number_input("Enter Processor Speed (GHz)", min_value=1.5, max_value=5.0, step=1.5, help="Typical range: 1.5 GHz to 5.0 GHz")
-ram_size = st.number_input("Enter RAM Size (GB)", min_value=4, max_value=128, step=4, help="Typical range: 4GB to 32GB")
-storage_capacity = st.number_input("Enter Storage Capacity (GB)", min_value=256, max_value=1000, step=256, help="Typical range: 256GB, 512, 1000GB")
-screen_size = st.number_input("Enter Screen Size (inches)", min_value=11.0, max_value=17.0, step=11.0, help="Typical range: 11.0 to 17.0 inches")
-weight = st.number_input("Enter Weight (kg)", min_value=2.0, max_value=5.0, step=2.0, help="Typical range: 2.0kg to 5.0kg")
+
+# RAM Size sebagai pilihan dari selectbox
+ram_size = st.selectbox("Select RAM Size (GB)", [4, 8, 16, 32], help="Typical range: 4GB to 32GB")
+
+# Storage Capacity sebagai pilihan dari selectbox
+storage_capacity = st.selectbox("Select Storage Capacity (GB)", [256, 512, 1000], help="Typical range: 256GB, 512GB, 1000GB")
+
+# Processor Speed menggunakan number_input untuk input manual (1.5 GHz to 5.0 GHz)
+processor_speed = st.number_input("Enter Processor Speed (GHz)", min_value=1.5, max_value=5.0, step=0.5, value=2.5, help="Typical range: 1.5 GHz to 5.0 GHz")
+
+# Screen Size menggunakan number_input untuk input manual (11.0 to 17.0 inches)
+screen_size = st.number_input("Enter Screen Size (inches)", min_value=11.0, max_value=17.0, step=0.5, value=15.6, help="Typical range: 11.0 to 17.0 inches")
+
+# Weight menggunakan number_input untuk input manual (2.0 to 5.0 kg)
+weight = st.number_input("Enter Weight (kg)", min_value=2.0, max_value=5.0, step=0.5, value=2.5, help="Typical range: 2.0kg to 5.0kg")
 
 # Tombol Proses
 if st.button("Predict Price"):
-    # One-hot encode buat brand
+    # One-hot encode untuk brand
     brand_encoded = [1 if brand == b else 0 for b in ["Acer", "Asus", "Dell", "HP", "Lenovo"]]
     new_laptop = np.array([[processor_speed, ram_size, storage_capacity, screen_size, weight] + brand_encoded])
 
